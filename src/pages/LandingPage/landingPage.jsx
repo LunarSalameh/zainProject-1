@@ -1,6 +1,6 @@
-// import Navbar from "../../components/navbar"
+
 // import Aboutus from "./aboutus"
-// import HeroSection from "./heroSection"
+import HeroSection from "./heroSection"
 // import WhyChooseUs from "./whyChooseUs"
 // import OurServices from "./ourServices"
 // import OurProjects from "./ourProjects"
@@ -13,15 +13,15 @@
     return (
         <div className="flex flex-col">
 
-           {/* <HeroSection />
-           <Aboutus />
+           <HeroSection />
+           {/* <Aboutus />
 
             <OurServices />
            <WhyChooseUs />
             <OurProjects />
             <Quote />
 
-            <Testimonial */}
+            <Testimonial /> */}
         </div>
     )
 }
