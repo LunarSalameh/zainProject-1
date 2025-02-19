@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BsList } from "react-icons/bs";
 import { FaLocationDot, FaRegClock, FaPhone } from "react-icons/fa6";
 import {
@@ -15,6 +15,20 @@ export default function Navbar() {
   const [menu, setMenu] = useState(false);
 
   const [index, setIndex] = useState(-1);
+
+  const [isSticky, setIsSticky] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      let windowHeight = window.scrollY;
+      windowHeight>50 ? setIsSticky('fixed top-0 w-full'): setIsSticky("");
+
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
 
   const socials = [
     { src: <FaFacebookF color="AB7442" size={16} />, path: "/" },
@@ -48,9 +62,9 @@ export default function Navbar() {
   }
 
   return (
-    <div className="flex flex-col flex-wrap">
+    <div className="flex flex-col">
       {/* top bar  */}
-      <div className="flex flex-wrap justify-between bg-[#f5f5f5] px-12 py-2 text-[#555555] text-sm max-md:hidden">
+      <div className={`flex justify-between bg-[#f5f5f5] px-12 py-2 text-[#555555] text-sm max-md:hidden`}>
         {/* street, date, time */}
         <div className="flex gap-5">
           <div className="flex items-center gap-2">
@@ -82,7 +96,7 @@ export default function Navbar() {
       </div>
 
       {/* second bar  */}
-      <div className="flex justify-between items-center border-t border-[#AB7442]/20">
+      <div className={`flex justify-between bg-white ${isSticky} z-50 items-center border-t border-[#AB7442]/20`}>
         {/* logo */}
         <div>
           <h1 className="text-[#AB7442] px-12 py-3 text-4xl font-sans font-bold">
@@ -99,15 +113,14 @@ export default function Navbar() {
             >
               <a href={item.src}>{item.title}</a>
               <div>
-                {item.subList ? (
+                {item.subList && (
                   <IoIosArrowDown
                     className=" cursor-pointer"
                     size={14}
                     onClick={() => handleSubList(indexList)}
                   />
-                ) : (
-                  ""
                 )}
+                
               </div>
 
               {index === indexList && openSubList && item.subList && (
@@ -125,7 +138,7 @@ export default function Navbar() {
             </div>
           ))}
 
-          <div className="hidden max-md:flex max-md:flex-col">
+          <div className="hidden max-md:flex max-md:flex-col ">
             <div
               onClick={() => setMenu(!menu)}
               className="flex items-center border px-3 py-1"
@@ -133,16 +146,17 @@ export default function Navbar() {
               <BsList size={28} className="text-black/50" />
             </div>
           </div>
-          <div className="max-md:hidden">
-            <Button text="Get A Quote  ➜" padding="py-6 px-12" />
-          </div> 
+
         </div>
+
+        <Button text="Get A Quote  ➜" padding="py-6 px-12 max-md:hidden" />
+
       </div>
 
       {menu && (
         <div className="flex flex-col gap-4 px-14 border-t py-6">
           {navbarList.map((item, indexList) => (
-            <div key={index} className="flex flex-col gap-2 items-start ">
+            <div key={indexList} className="flex flex-col gap-2 items-start ">
               <div className="flex items-center gap-2 hover:text-[#AB7442]">
                 <a href={item.src}>{item.title}</a>
                 <div>
