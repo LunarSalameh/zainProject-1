@@ -94,7 +94,7 @@ export default function Navbar() {
         <div className="flex items-center gap-8 text-base ">
           {navbarList.map((item, indexList) => (
             <div
-              key={index}
+              key={indexList}
               className="flex gap-2 items-center relative max-md:hidden"
             >
               <a href={item.src}>{item.title}</a>
@@ -111,7 +111,7 @@ export default function Navbar() {
               </div>
 
               {index === indexList && openSubList && item.subList && (
-                <div className="absolute left-0 top-full mt-2  bg-white border">
+                <div className="absolute left-0 top-full mt-2 z-10 bg-white border">
                   {item.subList.map((subItem, subIndex) => (
                     <div
                       key={subIndex}
